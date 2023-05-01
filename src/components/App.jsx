@@ -6,7 +6,7 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
 import initialContacts from './Data/contacts.json';
-import css from './App.module.css'
+import css from './App.module.css';
 // import PropTypes from 'prop-types';
 
 export class App extends Component {
@@ -28,15 +28,13 @@ export class App extends Component {
   };
 
   deleteContact = contactId => {
-    const { contacts } = this.state;
-    const newContacts = contacts.filter(contact => contact.id !== contactId);
-
-    this.setState({ contacts: [...newContacts] });
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== contactId),
+    }));
   };
 
   onFilter = event => {
     this.setState({ filter: event.target.value });
-    console.log(this.state.filter);
   };
 
   onFilterSearch = () => {
@@ -50,29 +48,27 @@ export class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    console.log(contacts);
     return (
       <div className={css.container}>
         <h1 className={css.titel}>Phonebook</h1>
         <div className={css.contactSection}>
-        <div className={css.formSection}>
-          <ContactForm onSubmit={this.addContacts} />
-        </div>
+          <div className={css.formSection}>
+            <ContactForm onSubmit={this.addContacts} />
+          </div>
 
-        <div className={css.listSection}>
-          <h2 className={css.titelContacts}>Contacts</h2>
-          <Filter filter={filter} onFilter={this.onFilter} />
-          {contacts.length > 0 ? (
-            <ContactList
-              items={this.onFilterSearch()}
-              onDeleteContacts={this.deleteContact}
-            />
-          ) : (
-            <p className={css.message}>Add a new contact!</p>
-          )}
+          <div className={css.listSection}>
+            <h2 className={css.titelContacts}>Contacts</h2>
+            <Filter filter={filter} onFilter={this.onFilter} />
+            {contacts.length > 0 ? (
+              <ContactList
+                items={this.onFilterSearch()}
+                onDeleteContacts={this.deleteContact}
+              />
+            ) : (
+              <p className={css.message}>Add a new contact!</p>
+            )}
+          </div>
         </div>
-        </div>
-        
       </div>
     );
   }

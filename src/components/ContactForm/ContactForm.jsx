@@ -16,7 +16,6 @@ export class ContactForm extends Component {
   };
 
   onFormSubmit = event => {
-    console.log('event:', event);
     event.preventDefault();
     const { onSubmit } = this.props;
     onSubmit(this.state);

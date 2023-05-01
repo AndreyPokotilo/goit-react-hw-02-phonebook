@@ -17,8 +17,7 @@ export function Contact({ name, number, contactId, onDeleteContacts }) {
         <button
           className={css.btnContact}
           type="button"
-          onClick={e => {
-            e.preventDefault();
+          onClick={() => {
             onDeleteContacts(contactId);
           }}
         >
